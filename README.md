@@ -1,5 +1,7 @@
 Description Team:
-##Techbyte Innovation
+
+`Techbyte Innovation`
+
 Krisna Purnama as Hacker
 Jelang Anugrah Raharjo as Hacker
 Hanif Ahmad Rizqullah as Hustler
@@ -11,14 +13,15 @@ This documentation provides information about the Pay-O API, which handles user 
 
 ## Table of Contents
 - [Signup](#signup)
-- [Login](#login)
+- [Login](#sigin)
+- [GetDataUser](#tes)
 - [Validate](#validate)
 
 ## Signup
 Registers a new user with the system.
 
 ### Endpoint
-`POST /signup`
+`POST` `/signup`
 
 ### Request Body
 - `Name` (string, required): User's name.
@@ -37,7 +40,7 @@ Registers a new user with the system.
 ```
 ### Response Body
 ```json
-{ "token": "your_generated_token" }`
+{ "token": "your_generated_token" }
 ```
 ###Failure (HTTP 401 Bad Request):
 ```json
@@ -50,7 +53,7 @@ Registers a new user with the system.
 Registers a new user with the system.
 
 ### Endpoint
-`POST /login`
+`POST` `/login`
 
 ### Request Body
 - `Email` (string, required): User's email address.
@@ -65,7 +68,7 @@ Registers a new user with the system.
 ```
 ### Response Body
 ```json
-{ "token": "your_generated_token" }`
+{ "token": "your_generated_token" }
 ```
 ###Failure (HTTP 401 Bad Request):
 ```json
@@ -73,3 +76,36 @@ Registers a new user with the system.
   "error" : "message",
 }
 ```
+
+## Tes
+Get data user login
+
+### Endpoint
+`GET` `/tes`
+
+### Request Header
+```json
+{
+   "Authorization": "your_token"
+}
+```
+
+### Response
+```json
+{
+   "Data": "Data"
+}
+```
+
+###Failure (HTTP 401 Bad Request):
+```json
+{
+  "error" : "message",
+}
+```
+
+###Forbiden (HTTP 403 Forbidden content)
+redirect to forbidden content page 
+
+
+
