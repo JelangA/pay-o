@@ -27,13 +27,13 @@ Registers a new user with the system.
 - `Phone` (int, required): User's phone number.
 
 #### Example Request
-`json
+``json
 {
   "Name": "John Doe",
   "Email": "john@example.com",
   "Password": "password123",
   "Phone": 123456789
-}`
+}``
 
 ### Response Body
 `json
