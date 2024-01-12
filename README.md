@@ -1,3 +1,10 @@
+Description Team:
+##Techbyte Innovation
+Krisna Purnama as Hacker
+Jelang Anugrah Raharjo as Hacker
+Hanif Ahmad Rizqullah as Hustler
+Fanza Atsila Fizarli as Hipster
+ 
  Pay-O API Documentation
 
 This documentation provides information about the Pay-O API, which handles user registration, login, and validation using JWT tokens.
@@ -20,7 +27,7 @@ Registers a new user with the system.
 - `Phone` (int, required): User's phone number.
 
 #### Example Request
-```json
+json
 {
   "Name": "John Doe",
   "Email": "john@example.com",
@@ -47,7 +54,7 @@ Registers a new user with the system.
 - `Password` (string, required): User's password.
 
 #### Example Request
-```json
+json
 {
   "Email": "john@example.com",
   "Password": "password123",
