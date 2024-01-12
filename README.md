@@ -40,7 +40,8 @@ Registers a new user with the system.
 { "token": "your_generated_token" }`
 ```
 ###Failure (HTTP 401 Bad Request):
-```json{
+```json
+{
   "error" : "message",
 }
 ```
@@ -67,7 +68,8 @@ Registers a new user with the system.
 { "token": "your_generated_token" }`
 ```
 ###Failure (HTTP 401 Bad Request):
-```json{
+```json
+{
   "error" : "message",
 }
 ```
