@@ -34,27 +34,40 @@ Registers a new user with the system.
   "Password": "password123",
   "Phone": 123456789
 }
-
+```
 ### Response Body
+```json
 { "token": "your_generated_token" }`
-
-###Failure (HTTP 400 Bad Request):
-`json{
+```
+###Failure (HTTP 401 Bad Request):
+```json{
   "error" : "message",
-}`
+}
+```
 
 ## Sigin
 Registers a new user with the system.
 
 ### Endpoint
-POST `/login`
+`POST /login`
 
 ### Request Body
 - `Email` (string, required): User's email address.
 - `Password` (string, required): User's password.
 
 ### Example Request
+```json
 {
   "Email": "john@example.com",
   "Password": "password123",
 }
+```
+### Response Body
+```json
+{ "token": "your_generated_token" }`
+```
+###Failure (HTTP 401 Bad Request):
+```json{
+  "error" : "message",
+}
+```
