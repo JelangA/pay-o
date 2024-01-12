@@ -33,10 +33,9 @@ Registers a new user with the system.
   "Email": "john@example.com",
   "Password": "password123",
   "Phone": 123456789
-}`
+}
 
 ### Response Body
-`json
 { "token": "your_generated_token" }`
 
 ###Failure (HTTP 400 Bad Request):
@@ -54,9 +53,8 @@ POST `/login`
 - `Email` (string, required): User's email address.
 - `Password` (string, required): User's password.
 
-#### Example Request
-`json
+### Example Request
 {
   "Email": "john@example.com",
   "Password": "password123",
-}`
+}
