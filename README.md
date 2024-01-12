@@ -27,35 +27,36 @@ Registers a new user with the system.
 - `Phone` (int, required): User's phone number.
 
 #### Example Request
-json
+`json
 {
   "Name": "John Doe",
   "Email": "john@example.com",
   "Password": "password123",
   "Phone": 123456789
-}
+}`
 
 ### Response Body
-{ "token": "your_generated_token" }
+`json
+{ "token": "your_generated_token" }`
 
-Failure (HTTP 400 Bad Request):
-{
+###Failure (HTTP 400 Bad Request):
+`json{
   "error" : "message",
-}
+}`
 
 ## Sigin
 Registers a new user with the system.
 
 ### Endpoint
-`POST /login`
+POST `/login`
 
 ### Request Body
 - `Email` (string, required): User's email address.
 - `Password` (string, required): User's password.
 
 #### Example Request
-json
+`json
 {
   "Email": "john@example.com",
   "Password": "password123",
-}
+}`
