@@ -1,79 +1,47 @@
-// controller/payment_controller.go
+// midtrans_controller.go
 
 package controller
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/midtrans/midtrans-go"
+	"github.com/midtrans/midtrans-go/snap"
 )
 
-func initMidtransClient() {}
+// MidtransController handles Midtrans transactions
+type MidtransController struct{}
 
-func ShowPaymentPage(c *gin.Context) {
-	initMidtransClient()
-	c.HTML(http.StatusOK, "payment_page.html", gin.H{
-	})
+// NewMidtransController creates a new instance of MidtransController
+func NewMidtransController() *MidtransController {
+	return &MidtransController{}
 }
 
-func ChargePayment(c *gin.Context) {
-	initMidtransClient()
-	// Menyiapkan payload pembayaran untuk Midtrans
-	paymentPayload := map[string]interface{}{
-		"payment_type": "credit_card",
-		"transaction_details": map[string]interface{}{
-			"order_id": "ORDER123",
-			"gross_amount": 100000,
-		},
-		"credit_card": map[string]interface{}{
-			"token_id": "YOUR_CREDIT_CARD_TOKEN", // Token kartu kredit yang telah di-generate sebelumnya
-		},
-	}
-
-	// Melakukan request ke API Midtrans
-	apiURL := "https://api.sandbox.midtrans.com/v2/charge"
-	apiKey := "YOUR_MIDTRANS_SERVER_KEY"
-	response, err := callMidtransAPI(apiURL, apiKey, paymentPayload)
-
-	if response != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": fmt.Sprintf("Failed to charge payment: %s", err.Error()),
-		})
-		return
-	}
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": fmt.Sprintf("Failed to charge payment: %s", err.Error()),
-		})
+// CreateTransaction handles the creation of Midtrans transactions
+func (mc *MidtransController) CreateTransaction(c *gin.Context) {
+	// Parse request data and create a Snap request
+	var snapReqData map[string]interface{}
+	if err := c.ShouldBindJSON(&snapReqData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request data"})
 		return
 	}
 
-	// Melakukan sesuatu dengan response, misalnya menyimpan informasi pembayaran ke database
-	// ...
-
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Payment successful!",
-		// Kirim data atau pesan lain ke frontend
-		// ...
-	})
-}
-
-func callMidtransAPI(apiURL, apiKey string, payload map[string]interface{}) (*http.Response, error) {
-	jsonPayload, err := json.Marshal(payload)
-	if err != nil {
-		return nil, err
+	// Create a Snap request
+	snapReq := &snap.Request{
+		TransactionDetails: midtrans.TransactionDetails{
+			OrderID:  snapReqData["order_id"].(string),
+			GrossAmt: int64(snapReqData["gross_amount"].(float64)),
+		},
 	}
 
-	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(jsonPayload))
+	// Call the Midtrans CreateTransaction function
+	response, err := snap.CreateTransaction(snapReq)
 	if err != nil {
-		return nil, err
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create Midtrans transaction"})
+		return
 	}
 
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Basic "+apiKey)
-
-	client := &http.Client{}
-	return client.Do(req)
+	// Return the Snap response to the client
+	c.JSON(http.StatusOK, response)
 }

@@ -15,11 +15,13 @@ func SetupRouter() *gin.Engine {
 	r.ForwardedByClientIP = true
 	r.SetTrustedProxies([]string{"127.0.0.1"})
 
-	r.POST("/signup", controller.Signup)
+	r.POST("/register", controller.Signup)
 	r.POST("/login", controller.Login)
-	r.GET("/tes", middleware.AuthMiddleware, controller.Validate)
+	r.GET("/getuser", middleware.AuthMiddleware, controller.Validate)
 	r.GET("/google/login")
 	r.GET("/google/callback")
+
+	r.POST("/midtrans/create-transaction", middleware.AuthMiddleware, controller.NewMidtransController().CreateTransaction)
 
 	return r
 }

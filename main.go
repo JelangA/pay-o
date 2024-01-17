@@ -5,6 +5,8 @@ import (
 	"os"
 	"pay-o/config"
 	"pay-o/routes"
+
+	"github.com/midtrans/midtrans-go"
 )
 
 
@@ -13,6 +15,9 @@ func init(){
 	config.LoadEnvVariables()
 	config.DBconnection()
 	config.SyncDatabase()
+
+	midtrans.ClientKey = os.Getenv("CLIENTKEY")
+	midtrans.ServerKey = os.Getenv("SERVERKEY")
 }
 
 func main() {

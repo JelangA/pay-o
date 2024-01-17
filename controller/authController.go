@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"pay-o/config"
 	"pay-o/models"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -28,22 +30,29 @@ func Signup(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "failed to read body",
 		})
+		return
 	}
 
 	validate := validator.New()
+
 	if err := validate.Struct(body); err != nil {
 		validationErrors := err.(validator.ValidationErrors)
-		var data []gin.H
+
+		// Create a slice to hold individual validation error messages
+		var errorMessages []string
 
 		for _, fieldError := range validationErrors {
-			errorData := gin.H{
-				fieldError.Field(): fieldError.ActualTag(),
-			}
-			data = append(data, errorData)
+			// Concatenate field and its corresponding validation error into a string
+			errorMessage := fmt.Sprintf("%s %s", fieldError.Field(), fieldError.ActualTag())
+			errorMessages = append(errorMessages, errorMessage)
 		}
 
+		// Combine individual validation error messages into a single string
+		combinedErrorMessage := strings.Join(errorMessages, ", ")
+
+		// Send the combined validation error message in the JSON response
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": data,
+			"error": combinedErrorMessage,
 		})
 
 		return
@@ -113,19 +122,25 @@ func Login(c *gin.Context) {
 	}
 
 	validate := validator.New()
+
 	if err := validate.Struct(body); err != nil {
 		validationErrors := err.(validator.ValidationErrors)
-		var data []gin.H
+
+		// Create a slice to hold individual validation error messages
+		var errorMessages []string
 
 		for _, fieldError := range validationErrors {
-			errorData := gin.H{
-				fieldError.Field(): fieldError.ActualTag(),
-			}
-			data = append(data, errorData)
+			// Concatenate field and its corresponding validation error into a string
+			errorMessage := fmt.Sprintf("%s %s", fieldError.Field(), fieldError.ActualTag())
+			errorMessages = append(errorMessages, errorMessage)
 		}
 
+		// Combine individual validation error messages into a single string
+		combinedErrorMessage := strings.Join(errorMessages, ", ")
+
+		// Send the combined validation error message in the JSON response
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": data,
+			"error": combinedErrorMessage,
 		})
 
 		return
@@ -169,14 +184,5 @@ func Login(c *gin.Context) {
 	//response with token
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
-	})
-}
-
-func Validate(c *gin.Context) {
-
-	user, _ := c.Get("user")
-
-	c.JSON(http.StatusOK, gin.H{
-		"message": user,
 	})
 }
