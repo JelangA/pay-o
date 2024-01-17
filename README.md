@@ -11,6 +11,15 @@ Fanza Atsila Fizarli as Hipster
 
 This documentation provides information about the Pay-O API, which handles user registration, login, and validation using JWT tokens.
 
+instalation 
+
+clone `https://github.com/JelangA/pay-o`
+set `.env.example to .env`
+go to folder `cd pay-o`
+run command `compiledaemon --command="./pay-o"`
+
+
+
 ## Table of Contents
 - [Signup](#signup)
 - [Login](#sigin)
