@@ -2,14 +2,23 @@ Description Team:
 
 `Techbyte Innovation`
 
-Krisna Purnama as Hacker
-Jelang Anugrah Raharjo as Hacker
-Hanif Ahmad Rizqullah as Hustler
-Fanza Atsila Fizarli as Hipster
+Krisna Purnama as Hacker <br>
+Jelang Anugrah Raharjo as Hacker <br>
+Hanif Ahmad Rizqullah as Hustler <br>
+Fanza Atsila Fizarli as Hipster <br>
  
  Pay-O API Documentation
 
 This documentation provides information about the Pay-O API, which handles user registration, login, and validation using JWT tokens.
+
+instalation 
+
+clone `https://github.com/JelangA/pay-o` <br>
+set `.env.example to .env` <br>
+go to folder `cd pay-o` <br>
+run command `compiledaemon --command="./pay-o"` <br>
+
+
 
 ## Table of Contents
 - [Signup](#signup)
