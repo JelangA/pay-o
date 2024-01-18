@@ -22,7 +22,7 @@ func Signup(c *gin.Context) {
 		Name     string `validate:"required"`
 		Email    string `validate:"required"`
 		Password string `validate:"required"`
-		Phone    int    `validate:"required"`
+		Phone    string `validate:"required"`
 	}
 
 	//cek request
@@ -83,7 +83,7 @@ func Signup(c *gin.Context) {
 		})
 		return
 	}
-
+	
 	//generate jwt token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub": user.ID,
